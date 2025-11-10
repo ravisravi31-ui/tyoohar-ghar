@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root{--burgundy:#7b0c0c;--gold:#cba852;--cream:#fff8f0}
+body { font-family: Inter, sans-serif; background: linear-gradient(180deg,var(--cream),#fffaf5); }
+h1,h2,h3 { font-family: 'Playfair Display', serif; }
+.snow { pointer-events: none; position:fixed; inset:0; z-index:10; }
+.snow span { position:absolute; top:-10%; color: rgba(255,255,255,0.95); opacity:0.9; font-size:14px; animation: fall linear infinite; }
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
