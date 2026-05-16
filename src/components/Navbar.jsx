@@ -6,10 +6,10 @@ const WA = 'https://wa.me/919599004265?text=Hi%20Tyoohar%20Ghar%2C%20I%27d%20lov
 const navLinks = [
   { label: 'Home',       to: '/' },
   { label: 'Collections', to: '/collections' },
+  { label: 'Rituals',    to: '/rituals' },
   { label: 'Corporate',  to: '/corporate-gifting' },
   { label: 'Blog',       to: '/blog' },
   { label: 'About',      to: '/about' },
-  { label: 'FAQ',        to: '/faq' },
 ];
 
 export default function Navbar() {
@@ -17,9 +17,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location                = useLocation();
 
-  useEffect(() => {
-    setOpen(false);
-  }, [location]);
+  useEffect(() => { setOpen(false); }, [location]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -30,37 +28,49 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-cream-100/95 backdrop-blur-sm shadow-sm' : 'bg-cream-100'
+        scrolled ? 'bg-white/95 backdrop-blur-md shadow-md' : 'bg-cream-100'
       }`}
     >
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
 
         {/* Logo */}
-        <Link to="/" className="flex flex-col leading-none">
-          <span className="font-display text-xl font-bold text-navy-brand tracking-wide">
-            Tyoohar Ghar
-          </span>
-          <span className="font-body text-[10px] text-rose-brand tracking-[0.15em] uppercase">
-            Festive Gifting
-          </span>
+        <Link to="/" className="flex items-center gap-3 group">
+          <img
+            src="/images/logo.svg"
+            alt="Tyoohar Ghar"
+            className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
+            onError={e => {
+              e.target.style.display = 'none';
+              e.target.nextElementSibling.style.display = 'flex';
+            }}
+          />
+          <div className="hidden flex-col leading-none">
+            <span className="font-display text-xl font-bold text-navy-brand tracking-wide">Tyoohar Ghar</span>
+            <span className="font-body text-[10px] text-rose-brand tracking-[0.15em] uppercase">Festive Gifting</span>
+          </div>
         </Link>
 
         {/* Desktop nav */}
-        <ul className="hidden md:flex items-center gap-6">
+        <ul className="hidden md:flex items-center gap-5 lg:gap-6">
           {navLinks.map(({ label, to }) => (
             <li key={to}>
               <NavLink
                 to={to}
                 end={to === '/'}
                 className={({ isActive }) =>
-                  `font-body text-sm font-medium transition-colors duration-150 ${
-                    isActive
-                      ? 'text-rose-brand'
-                      : 'text-navy-mid hover:text-rose-brand'
+                  `font-body text-sm font-medium transition-colors duration-150 relative group ${
+                    isActive ? 'text-rose-brand' : 'text-navy-mid hover:text-rose-brand'
                   }`
                 }
               >
-                {label}
+                {({ isActive }) => (
+                  <>
+                    {label}
+                    <span className={`absolute -bottom-0.5 left-0 h-0.5 bg-rose-brand rounded-full transition-all duration-300 ${
+                      isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`} />
+                  </>
+                )}
               </NavLink>
             </li>
           ))}
@@ -99,15 +109,17 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-cream-100 border-t border-cream-300 px-4 py-4 space-y-3 shadow-lg animate-fade-in">
+        <div className="md:hidden bg-white border-t border-cream-300 px-4 py-4 space-y-1 shadow-xl animate-slideDown">
           {navLinks.map(({ label, to }) => (
             <NavLink
               key={to}
               to={to}
               end={to === '/'}
               className={({ isActive }) =>
-                `block font-body text-base py-2 border-b border-cream-200 ${
-                  isActive ? 'text-rose-brand font-semibold' : 'text-navy-mid'
+                `flex items-center font-body text-base py-3 px-2 rounded-lg transition-colors ${
+                  isActive
+                    ? 'text-rose-brand font-semibold bg-rose-pale/50'
+                    : 'text-navy-mid hover:text-rose-brand hover:bg-cream-200'
                 }`
               }
             >
