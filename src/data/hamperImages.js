@@ -20,7 +20,7 @@ export const hamperImages = {
 
   // ── FATHER'S DAY ──────────────────────────────────────────────
   'fd-dads-treat':       [],
-  'fd-cool-dad-box':     ['Artisan coffee', 'Gourmet snacks'],
+  'fd-cool-dad-box':     ['Artisan_coffee', 'Gourmet_snacks'],
   'fd-grand-dad-hamper': [],
 
   // ── RAKHI ─────────────────────────────────────────────────────
